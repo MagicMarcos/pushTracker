@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+
+    <title>GitHub Accountability Tracker</title>
+    <meta
+      name="description"
+      content="100devs team Github Accountability Tracker App"
+    />
+    <meta
+      name="author"
+      content="100devs team Github Accountability Tracker App"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+      integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p"
+      crossorigin="anonymous"
+    />
+  </head>
+
+  <body>
+    
+
+    <section class="main">
+      <!-- if user is logged out, display only LogIn, if User logged in display profile and log out -->
+      <% if(!user) {%>
+        <nav id="navbar">
+          <ul>
+            <li><a href="/login">LogIn</a></li>
+            
+           
+            <li><a href="/signup">SignUp</a></li>
+          </ul>
+        </nav>
+        <h2 class="welcome">Welcome, Guest</h2>
+        
+     <% } else { %>
+        <nav id="navbar">
+          <ul>
+            
+            <li><a href="/profile">Profile</a></li>
+            <li><a href="/logout">LogOut</a></li>
+           
+          </ul>
+        </nav>
+        <h2 class="welcome">Welcome, <%= user.githubUsername %>
+        </h2>
+      <% } %>
+
+      <!-- need function to determine wether user is logged in to display proper greeting-->
+      <section class="top">
+        <h1>GitHub Accountability Tracker</h1>
+      </section>
+
+      <!-- user feed section, displays all other posts including the users as they are posted -->
+      <section class="userFeed">
+        <ul >
+          <!-- remove thumbs up on this page, only used as an example for code, apply on index page -->
+          <!--turn all of this code into ejs that pulls from the database-->
+          <% if(posts) { %>
+        
+            <% posts.forEach(el=> { %>
+        
+              <li data-id='<%=el._id%>' class="trackers">
+                <span>
+                  <span data-likes='<%=el.likes%>' class="dog">
+                    hi
+                    <%= el.likes %>
+                  </span>
+                  <i class="fas fa-thumbs-up like"></i>
+                  <i class="fas fa-trash del"></i></span>
+                <section>
+                  <span> Author:</span>
+                  <hr>
+                  <span> Repo Link: <%= el.repoLink %> </span>
+                  <hr>
+                  <span> "<%= el.description %>" </span>
+                </section>
+              </li>
+              <% }); %>
+                <% } %>
+        </ul>
+      </section>
+    </section>
+
+
+
+
+    <!---------- FOOTER ------------->
+    <footer id="footer">
+      <ul>
+        <li>
+          Copyright <i class="far fa-copyright"></i>2021 by
+          <span
+            ><a href="https://spongy.com/100devs/" target="_blank"
+              >Spongy,Inc.</a
+            ></span
+          >
+          All rights reserved.
+        </li>
+      </ul>
+    </footer>
+
+    <script src="js/script.js"></script>
+  </body>
+</html>
