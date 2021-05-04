@@ -25,65 +25,126 @@
     
 
     <section class="main">
-      <!-- if user is logged out, display only LogIn, if User logged in display profile and log out -->
-      <% if(!user) {%>
-        <nav id="navbar">
-          <ul>
-            <li><a href="/login">LogIn</a></li>
-            
-           
-            <li><a href="/signup">SignUp</a></li>
-          </ul>
-        </nav>
-        <h2 class="welcome">Welcome, Guest</h2>
-        
-     <% } else { %>
+    <!-- ///////USER IS LOGGED IN -->
+
+      <% if(user) {%>
         <nav id="navbar">
           <ul>
             
             <li><a href="/profile">Profile</a></li>
             <li><a href="/logout">LogOut</a></li>
            
+            
           </ul>
         </nav>
-        <h2 class="welcome">Welcome, <%= user.githubUsername %>
+        <h2 class="welcome"><%= user.githubUsername %></h2>
+
+        <section class="top">
+          <h1>GitHub Accountability Tracker</h1>
+        </section>
+        
+        <section class="userFeed">
+          <ul>
+          
+          <% if(posts) { %>
+            
+              <% posts.forEach(el=> { %>
+                  
+                          <li data-id='<%=el._id%>'  data-user ="<%=el.userId%>" class="trackers">
+                        <%if (user.githubUsername==el.userName) { %>
+                          <span>
+                            <span data-likes='<%=el.likes%>' class="dog">
+                              <%= el.likes %>
+                            </span>
+                            <i class="fas fa-thumbs-up like"></i>
+                            
+                              
+                              <i class="fas fa-trash del"></i>
+                          
+                            </span>
+                        <%} else {%>
+                          <span>
+                            <span data-likes='<%=el.likes%>' class="dog">
+                              <%= el.likes %>
+                            </span>
+                            <i class="fas fa-thumbs-up like"></i>
+                          
+                          
+                            
+                          
+                          </span>
+                        <%} %>
+                          <section>
+                            <span> Author: <%=el.userName%> </span>
+                            <hr>
+                            <span> Repo Link: <%= el.repoLink %> </span>
+                            <hr>
+                            <span> "<%= el.description %>" </span>
+                          </section>
+                          </li>
+                  
+
+              <% }); %>
+
+            
+            
+          <% } %>
+
+          
+      </ul>
+    </section>
+        
+     <% } %>
+
+    <!-- ///////USER IS LOGGED OUT-->
+     <% if (!user){ %>
+        <nav id="navbar">
+          <ul>
+            <li><a href="/login">LogIn</a></li>
+            <li><a href="/signup">SignUp</a></li>
+            
+           
+          </ul>
+        </nav>
+        <h2 class="welcome">Welcome, Guest
         </h2>
+
+        
+        <section class="top">
+          <h1>GitHub Accountability Tracker</h1>
+        </section>
+        
+        
+        <section class="userFeed">
+          <ul>
+           
+            <% if(posts) { %>
+        
+              <% posts.forEach(el=> { %>
+               
+                <li data-id='<%=el._id%>' class="trackers">
+                  <span>
+                    <span data-likes='<%=el.likes%>' class="dog">
+                      <%= el.likes %>
+                    </span>
+                    <i class="fas fa-thumbs-up like"></i>
+                    
+                  <section>
+                    <span> Author: "<%=el.userName%>" </span>
+                    <hr>
+                    <span> Repo Link: <%= el.repoLink %> </span>
+                    <hr>
+                    <span> "<%= el.description %>" </span>
+                  </section>
+                </li>
+                
+                <% }); %>
+                  <% } %>
+          </ul>
+        </section>
       <% } %>
 
-      <!-- need function to determine wether user is logged in to display proper greeting-->
-      <section class="top">
-        <h1>GitHub Accountability Tracker</h1>
-      </section>
-
-      <!-- user feed section, displays all other posts including the users as they are posted -->
-      <section class="userFeed">
-        <ul >
-          <!-- remove thumbs up on this page, only used as an example for code, apply on index page -->
-          <!--turn all of this code into ejs that pulls from the database-->
-          <% if(posts) { %>
-        
-            <% posts.forEach(el=> { %>
-        
-              <li data-id='<%=el._id%>' class="trackers">
-                <span>
-                  <span data-likes='<%=el.likes%>' class="dog">
-                    hi
-                    <%= el.likes %>
-                  </span>
-                  <i class="fas fa-thumbs-up like"></i>
-                  <i class="fas fa-trash del"></i></span>
-                <section>
-                  <span> Author:</span>
-                  <hr>
-                  <span> Repo Link: <%= el.repoLink %> </span>
-                  <hr>
-                  <span> "<%= el.description %>" </span>
-                </section>
-              </li>
-              <% }); %>
-                <% } %>
-        </ul>
-      </section>
+      
     </section>
 
 
@@ -103,7 +164,42 @@
         </li>
       </ul>
     </footer>
+    <script src='js/main.js'></script>
 
     <script src="js/script.js"></script>
   </body>
 </html>
+
+
+///////replit ejs
+
+<section class="userFeed">
+  <ul>
+    <!-- remove thumbs up on this page, only used as an example for code, apply on index page -->
+    <!--turn all of this code into ejs that pulls from the database-->
+    <% if(posts) { %>
+
+      <% posts.forEach(el=> { %>
+
+        <li class="tracker" data-id='<%=el._id%>'>
+
+          <section>
+            <span> Author:</span>
+            <hr>
+            <span> Repo Link: <%= el.repoLink %> </span>
+            <hr>
+            <span> "<%= el.description %>" </span>
+          </section>
+          <hr>
+          <span>
+            <span data-likes='<%=el.likes%>' class="dog">
+
+              <%= el.likes %>
+            </span>
+            <i class="fas fa-thumbs-up like"></i>
+          </span>
+        </li>
+        <% }); %>
+          <% } %>
+  </ul>
+</section>

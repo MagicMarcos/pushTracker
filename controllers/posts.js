@@ -4,7 +4,7 @@ module.exports = {
   getPosts: async (req, res) => {
     
     try {
-      const postItems = await Post.find({ userId: req.user.id });
+      const postItems = await Post.find({ userId: req.user.id, userName: req.user.githubUsername });
       res.render("profile.ejs", { posts: postItems.reverse(), user: req.user });
     } catch (err) {
       console.log(err);
@@ -17,6 +17,7 @@ module.exports = {
         repoLink: req.body.repoLink,
         description: req.body.description,
         userId: req.user.id,
+        userName: req.user.githubUsername
       });
       console.log("Post has been added!");
       res.redirect("/profile");

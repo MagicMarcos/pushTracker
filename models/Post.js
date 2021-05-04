@@ -6,6 +6,10 @@ const PostSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+    userName: {
+    type: String,
+    required: true,
+  },
   // repo link
   repoLink: {
     type: String,
@@ -15,10 +19,6 @@ const PostSchema = new mongoose.Schema({
   description: {
     type: String,
     required: true,
-  },
-  likes: {
-    type: Number,
-    default: 0,
   }
 });
 
